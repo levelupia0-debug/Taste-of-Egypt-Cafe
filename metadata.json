@@ -1,0 +1,7 @@
+{
+  "name": "Taste of Egypt Cafe - Luxury Dining & Artisanal Bakery",
+  "description": "San Diego's premier Egyptian cafe and bakery. Authentic Koshary, crispy Hawawshi, handcrafted viennoiserie, and specialty spiced Karak.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+
