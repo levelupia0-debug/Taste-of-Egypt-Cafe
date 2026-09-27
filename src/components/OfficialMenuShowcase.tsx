@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { ZoomIn, X, Download } from 'lucide-react';
+import { SafeImage } from './SafeImage';
 
 export const OFFICIAL_MENUS = [
   {
@@ -57,18 +58,17 @@ export const OfficialMenuShowcase: React.FC = () => {
               onClick={() => setSelectedMenu(menu)}
               className="group cursor-pointer rounded-xl overflow-hidden bg-[#120B0A] border border-[#C5A059]/30 hover:border-[#DFBE7A] transition-all duration-300 shadow-xl hover:-translate-y-1.5 flex flex-col"
             >
-              {/* Image Preview Container */}
+              {/* Image Preview Container with SafeImage fallback */}
               <div className="relative aspect-[3/4] w-full overflow-hidden bg-[#231816]">
-                <img
+                <SafeImage
                   src={menu.image}
                   alt={menu.title}
+                  fallbackTitle={menu.title}
                   className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500 ease-out"
-                  referrerPolicy="no-referrer"
-                  loading="lazy"
                 />
 
                 {/* Hover overlay with zoom icon */}
-                <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2 text-white">
+                <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2 text-white pointer-events-none">
                   <div className="px-4 py-2 rounded-full bg-[#120B0A]/90 border border-[#C5A059] text-xs font-semibold uppercase tracking-wider text-[#DFBE7A] flex items-center gap-2 shadow-lg backdrop-blur-sm">
                     <ZoomIn className="w-4 h-4 text-[#C5A059]" />
                     <span>Click to Enlarge</span>
@@ -136,13 +136,13 @@ export const OfficialMenuShowcase: React.FC = () => {
               </div>
             </div>
 
-            {/* Menu Image */}
+            {/* Menu Image with fallback */}
             <div className="overflow-y-auto max-h-[80vh] rounded-lg border border-[#C5A059]/40 shadow-2xl bg-[#120B0A]">
-              <img
+              <SafeImage
                 src={selectedMenu.image}
                 alt={selectedMenu.title}
+                fallbackTitle={selectedMenu.title}
                 className="w-full h-auto object-contain"
-                referrerPolicy="no-referrer"
               />
             </div>
           </div>

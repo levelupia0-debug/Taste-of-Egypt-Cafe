@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Maximize2, X, ChevronLeft, ChevronRight } from 'lucide-react';
+import { SafeImage } from './SafeImage';
 
 export const GALLERY_ITEMS = [
   {
@@ -10,7 +11,6 @@ export const GALLERY_ITEMS = [
   },
   {
     title: 'Lunch & Sandwich Menu',
-    subtitle: 'Artisanal breads, roast beef, smoked turkey, and shawermas',
     caption: 'Custom made-to-order panini, ciabatta, and fresh wraps',
     image: 'https://i.ibb.co/d06W2Nps/taste-of-egypt-lunch-menu.jpg',
     category: 'Lunch Menu'
@@ -30,13 +30,13 @@ export const GALLERY_ITEMS = [
   {
     title: 'Royal Alexandrian Koshary',
     caption: 'Layered brown lentils, chickpeas, and golden crispy onions',
-    image: '/src/assets/images/dish_egyptian_koshary_1790505155814.jpg',
+    image: 'https://images.unsplash.com/photo-1541518763669-27fef04b14ea?auto=format&fit=crop&w=800&q=80',
     category: 'Specialties'
   },
   {
     title: 'Stone Oven Charred Hawawshi',
     caption: 'Spiced minced beef baked inside fresh baladi pita bread',
-    image: '/src/assets/images/dish_golden_hawawshi_1790505165194.jpg',
+    image: 'https://images.unsplash.com/photo-1509722747041-616f39b57569?auto=format&fit=crop&w=800&q=80',
     category: 'Specialties'
   }
 ];
@@ -87,17 +87,16 @@ export const PhotoPortfolioSection: React.FC = () => {
                 onClick={() => openLightbox(index)}
                 className="group relative overflow-hidden rounded-lg bg-[#1A1110] border border-[#C5A059]/20 hover:border-[#DFBE7A]/60 transition-all duration-500 cursor-pointer shadow-lg hover:-translate-y-1 aspect-[4/3]"
               >
-                <img
+                <SafeImage
                   src={item.image}
                   alt={item.title}
+                  fallbackTitle={item.title}
                   className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
-                  referrerPolicy="no-referrer"
-                  loading="lazy"
                 />
 
-                <div className="absolute inset-0 bg-gradient-to-t from-[#120B0A]/95 via-[#120B0A]/35 to-transparent opacity-85 group-hover:opacity-90 transition-opacity" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#120B0A]/95 via-[#120B0A]/35 to-transparent opacity-85 group-hover:opacity-90 transition-opacity pointer-events-none" />
 
-                <div className="absolute inset-0 p-5 flex flex-col justify-between">
+                <div className="absolute inset-0 p-5 flex flex-col justify-between pointer-events-none">
                   <div className="flex items-center justify-between">
                     <span className="text-[11px] font-medium tracking-widest uppercase text-[#DFBE7A] bg-[#120B0A]/80 px-2.5 py-1 rounded border border-[#C5A059]/30 backdrop-blur-sm">
                       {item.category}
@@ -150,11 +149,11 @@ export const PhotoPortfolioSection: React.FC = () => {
           </button>
 
           <div className="max-w-4xl max-h-[88vh] flex flex-col items-center">
-            <img
+            <SafeImage
               src={GALLERY_ITEMS[selectedPhotoIndex].image}
               alt={GALLERY_ITEMS[selectedPhotoIndex].title}
+              fallbackTitle={GALLERY_ITEMS[selectedPhotoIndex].title}
               className="max-h-[75vh] w-auto object-contain rounded shadow-2xl border border-[#C5A059]/30"
-              referrerPolicy="no-referrer"
             />
             <div className="text-center mt-4 max-w-xl">
               <span className="text-xs uppercase tracking-widest text-[#DFBE7A]">

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Calendar, UtensilsCrossed } from 'lucide-react';
+import { SafeImage } from './SafeImage';
 
 interface HeroSectionProps {
   onOpenReservation: () => void;
@@ -12,13 +13,13 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 }) => {
   return (
     <section className="relative w-full bg-[#120B0A]">
-      {/* 1. Clear, Unobstructed Hero Visual (100% visible, fully responsive) */}
+      {/* 1. Clear, Unobstructed Hero Visual (100% visible, fully responsive, SafeImage protected) */}
       <div className="relative w-full h-[60vh] sm:h-[72vh] md:h-[82vh] overflow-hidden flex items-center justify-center bg-[#120B0A]">
-        <img
+        <SafeImage
           src="https://i.ibb.co/hRj3SFzR/Chat-GPT-Image-27-sept-2026-02-36-16-1.png"
           alt="Taste of Egypt Cafe Luxury Dining Room & Atmosphere"
+          fallbackTitle="Taste of Egypt Cafe"
           className="w-full h-full object-contain md:object-cover object-center"
-          referrerPolicy="no-referrer"
         />
 
         {/* Soft elegant vignette on top for navbar blend */}
@@ -28,7 +29,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
         <div className="absolute inset-x-0 bottom-0 h-28 sm:h-36 bg-gradient-to-t from-[#120B0A] via-[#120B0A]/60 to-transparent pointer-events-none" />
       </div>
 
-      {/* 2. Clean Typography & Actions below the photo (NO intrusive bubbles or pills!) */}
+      {/* 2. Clean Typography & Actions below the photo */}
       <div className="relative z-20 max-w-4xl mx-auto px-4 sm:px-6 pt-6 pb-16 text-center">
         {/* High-Contrast Crisp Heading */}
         <h1 className="font-['Cormorant_Garamond'] text-3xl sm:text-5xl md:text-6xl font-normal text-[#F7F4EE] tracking-tight leading-[1.12] mb-4">

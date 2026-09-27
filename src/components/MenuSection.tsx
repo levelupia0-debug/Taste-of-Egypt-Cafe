@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Plus, Check } from 'lucide-react';
 import { MENU_ITEMS, FLAVOR_OPTIONS } from '../data/menuData';
 import { MenuItem } from '../types';
+import { SafeImage } from './SafeImage';
 
 interface MenuSectionProps {
   onAddToCart: (item: {
@@ -59,43 +60,36 @@ export const MenuSection: React.FC<MenuSectionProps> = ({
           Curated Dining & Artisanal Delicacies
         </div>
         <h2 className="font-['Cormorant_Garamond'] text-3xl sm:text-5xl font-normal text-[#F7F4EE] tracking-tight">
-          The Culinary Menu & Eastern Sweets
+          Signature Cafe Specialties
         </h2>
-        <div className="w-16 h-[1px] bg-[#C5A059]/40 mx-auto my-4" />
-        <p className="text-sm sm:text-base text-[#A89F91] font-light leading-relaxed">
-          Crafted with genuine spices imported from Egypt, slow-cooked meats, and handcrafted pure butter pastries baked every morning.
+        <div className="w-16 h-[1px] bg-[#C5A059]/40 mx-auto my-3" />
+        <p className="text-sm text-[#A89F91] leading-relaxed">
+          Crafted daily from heritage family recipes, baked fresh at dawn, and served alongside authentic Middle Eastern spiced brews.
         </p>
       </div>
 
-      {/* Product Cards Grid (3 Columns Desktop) */}
+      {/* Menu Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
         {MENU_ITEMS.map((item) => {
-          const isAdded = addedItemIds[item.id];
           const currentVariant = selectedVariants[item.id];
           const currentFlavor = selectedFlavors[item.id];
           const displayPrice = (currentVariant ? currentVariant.price : item.price) + (currentFlavor ? 1.0 : 0);
+          const isAdded = !!addedItemIds[item.id];
 
           return (
             <div
               key={item.id}
               className="group rounded-lg bg-[#1A1110] border border-[#C5A059]/20 hover:border-[#C5A059]/50 transition-all duration-300 flex flex-col overflow-hidden shadow-md hover:-translate-y-1"
             >
-              {/* Product Imagery */}
+              {/* Product Imagery with LevelUp Fallback if broken */}
               <div className="relative aspect-[4/3] w-full overflow-hidden bg-[#231816]">
-                {item.image ? (
-                  <img
-                    src={item.image}
-                    alt={item.name}
-                    className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500 ease-out"
-                    referrerPolicy="no-referrer"
-                    loading="lazy"
-                  />
-                ) : (
-                  <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-[#231816] to-[#120B0A] text-[#C5A059]/40">
-                    <span className="font-['Cinzel'] text-sm tracking-widest uppercase">Taste of Egypt</span>
-                  </div>
-                )}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#1A1110] via-transparent to-transparent opacity-60" />
+                <SafeImage
+                  src={item.image}
+                  alt={item.name}
+                  fallbackTitle={item.name}
+                  className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500 ease-out"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#1A1110] via-transparent to-transparent opacity-60 pointer-events-none" />
 
                 {item.tags && (
                   <div className="absolute top-3 left-3 flex items-center gap-1.5 text-[11px] font-medium tracking-wider uppercase text-[#DFBE7A] bg-[#120B0A]/85 backdrop-blur-sm px-2.5 py-1 rounded border border-[#C5A059]/30">
@@ -158,9 +152,8 @@ export const MenuSection: React.FC<MenuSectionProps> = ({
                   {/* Flavor Addon for Beverages */}
                   {item.category === 'beverages' && (
                     <div className="flex items-center gap-2">
-                      <span className="text-[11px] text-[#A89F91]">Flavor (+$1):</span>
+                      <span className="text-[11px] text-[#A89F91]">Flavor:</span>
                       <select
-                        aria-label={`Choose flavor for ${item.name}`}
                         value={currentFlavor || ''}
                         onChange={(e) =>
                           setSelectedFlavors((prev) => ({
@@ -168,44 +161,67 @@ export const MenuSection: React.FC<MenuSectionProps> = ({
                             [item.id]: e.target.value,
                           }))
                         }
-                        className="bg-[#231816] text-[#ECE6DA] border border-[#C5A059]/20 rounded text-[11px] px-2 py-1 focus:outline-none focus:border-[#C5A059]"
+                        className="bg-[#120B0A] border border-[#C5A059]/20 text-[#ECE6DA] text-[11px] rounded px-2 py-1 focus:outline-none focus:border-[#C5A059]"
                       >
-                        <option value="">No flavor</option>
+                        <option value="">None (Original)</option>
                         {FLAVOR_OPTIONS.map((f) => (
                           <option key={f.name} value={f.name}>
-                            {f.name} (+${f.price.toFixed(2)})
+                            +{f.name} (+$1.00)
                           </option>
                         ))}
                       </select>
                     </div>
                   )}
 
-                  {/* Add to Cart Button */}
-                  <button
-                    onClick={() => handleAdd(item)}
-                    className={`w-full py-2.5 px-4 rounded text-xs font-semibold uppercase tracking-wider flex items-center justify-center gap-2 transition-all cursor-pointer ${
-                      isAdded
-                        ? 'bg-emerald-600 text-white'
-                        : 'bg-[#C5A059]/15 text-[#DFBE7A] border border-[#C5A059]/30 hover:bg-[#C5A059] hover:text-[#120B0A]'
-                    }`}
-                  >
-                    {isAdded ? (
-                      <>
-                        <Check className="w-3.5 h-3.5" />
-                        <span>Added to Order</span>
-                      </>
-                    ) : (
-                      <>
-                        <Plus className="w-3.5 h-3.5" />
-                        <span>Add to Order</span>
-                      </>
-                    )}
-                  </button>
+                  {/* Action Button */}
+                  <div className="pt-2 flex items-center justify-between">
+                    <button
+                      onClick={() => handleAdd(item)}
+                      className={`w-full py-2 px-3 rounded text-xs font-semibold uppercase tracking-wider transition-all flex items-center justify-center gap-2 cursor-pointer ${
+                        isAdded
+                          ? 'bg-emerald-600 text-white'
+                          : 'bg-[#C5A059]/15 text-[#DFBE7A] hover:bg-[#C5A059] hover:text-[#120B0A] border border-[#C5A059]/40'
+                      }`}
+                    >
+                      {isAdded ? (
+                        <>
+                          <Check className="w-3.5 h-3.5" />
+                          <span>Added to Order</span>
+                        </>
+                      ) : (
+                        <>
+                          <Plus className="w-3.5 h-3.5" />
+                          <span>Add to Order</span>
+                        </>
+                      )}
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
           );
         })}
+      </div>
+
+      {/* Custom Sandwich Workshop Banner */}
+      <div className="mt-14 p-6 sm:p-8 rounded-xl bg-gradient-to-r from-[#1A1110] via-[#231816] to-[#1A1110] border border-[#C5A059]/30 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl">
+        <div className="text-center md:text-left">
+          <div className="text-xs uppercase tracking-[0.25em] text-[#DFBE7A] font-medium mb-1">
+            Artisanal Deli Counter
+          </div>
+          <h3 className="font-['Cormorant_Garamond'] text-2xl sm:text-3xl font-medium text-[#F7F4EE]">
+            Build Your Custom Artisanal Sandwich
+          </h3>
+          <p className="text-xs text-[#A89F91] max-w-xl mt-1">
+            Select your bread (Ciabatta, Sourdough, Bagel, Panini), roasted turkey or beef, cheeses, fresh garden toppings, and house signature sauces.
+          </p>
+        </div>
+        <button
+          onClick={onOpenSandwichBuilder}
+          className="shrink-0 px-6 py-3 text-xs font-semibold uppercase tracking-widest text-[#120B0A] bg-gradient-to-r from-[#DFBE7A] via-[#C5A059] to-[#A8813B] rounded hover:brightness-110 active:scale-98 transition-all shadow-md cursor-pointer"
+        >
+          Open Sandwich Workshop
+        </button>
       </div>
     </section>
   );

@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 150" fill="none">
+  <!-- LevelUp 3D Star Icon -->
+  <g transform="translate(15, 10)">
+    <!-- Star Facets -->
+    <!-- Top Point -->
+    <path d="M 65 15 L 77 52 L 65 60 Z" fill="#9353D3" />
+    <path d="M 65 15 L 53 52 L 65 60 Z" fill="#B282F0" />
+    
+    <!-- Right Top Point -->
+    <path d="M 65 60 L 77 52 L 118 52 Z" fill="#7828C8" />
+    <path d="M 65 60 L 118 52 L 85 76 Z" fill="#581C87" />
+    
+    <!-- Right Bottom Point -->
+    <path d="M 65 60 L 85 76 L 98 116 Z" fill="#4C1D95" />
+    <path d="M 65 60 L 98 116 L 65 91 Z" fill="#6B21A8" />
+    
+    <!-- Left Bottom Point -->
+    <path d="M 65 60 L 65 91 L 32 116 Z" fill="#7E22CE" />
+    <path d="M 65 60 L 32 116 L 45 76 Z" fill="#9333EA" />
+    
+    <!-- Left Top Point -->
+    <path d="M 65 60 L 45 76 L 12 52 Z" fill="#A855F7" />
+    <path d="M 65 60 L 12 52 L 53 52 Z" fill="#C084FC" />
+  </g>
+
+  <!-- LevelUp Text -->
+  <text x="160" y="80" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="62" font-weight="600" fill="#FFFFFF" letter-spacing="-0.5">
+    Level<tspan fill="#FFFFFF">Up</tspan>
+  </text>
+  
+  <!-- ECOSYSTEM Subtitle -->
+  <text x="162" y="114" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="600" fill="#C084FC" letter-spacing="8">
+    ECOSYSTEM
+  </text>
+</svg>

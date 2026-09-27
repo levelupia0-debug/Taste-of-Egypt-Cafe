@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { X, Trash2, Plus, Minus, ShoppingBag, ArrowRight, Sparkles, Mail, ExternalLink } from 'lucide-react';
 import { CartItem } from '../types';
+import { SafeImage } from './SafeImage';
 
 interface CartDrawerProps {
   isOpen: boolean;
@@ -166,12 +167,14 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                   {items.map((item) => (
                     <div key={item.id} className="py-4 flex gap-3">
                       {item.image && (
-                        <img
-                          src={item.image}
-                          alt={item.name}
-                          className="w-14 h-14 object-cover rounded bg-[#231816] shrink-0 border border-[#C5A059]/20"
-                          referrerPolicy="no-referrer"
-                        />
+                        <div className="w-14 h-14 shrink-0 rounded overflow-hidden border border-[#C5A059]/20 bg-[#231816]">
+                          <SafeImage
+                            src={item.image}
+                            alt={item.name}
+                            fallbackTitle={item.name}
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
                       )}
                       <div className="flex-1 min-w-0">
                         <div className="flex items-start justify-between gap-2">
